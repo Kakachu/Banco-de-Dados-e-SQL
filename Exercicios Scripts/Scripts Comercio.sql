@@ -84,4 +84,39 @@ INSERT INTO ENDERECO VALUES(NULL, 'RUA DO OUVIDOR', 'FLAMENGO', 'RIO DE JANEIRO'
 INSERT INTO ENDERECO VALUES(NULL, 'RUA URUGUAIANA', 'CENTRO', 'VITORIA', 'ES', 3);
 INSERT INTO ENDERECO VALUES(NULL, 'RUA LIBERDADE', 'CENTRO', 'SAO PAULO', 'SP', 8);
 
+DESC TELEFONE;
 
++------------+-------------------------+------+-----+---------+----------------+
+| Field      | Type                    | Null | Key | Default | Extra          |
++------------+-------------------------+------+-----+---------+----------------+
+| IDTELEFONE | int(11)                 | NO   | PRI | NULL    | auto_increment |
+| TIPO       | enum('RES','COM','CEL') | NO   |     | NULL    |                |
+| NUMERO     | varchar(10)             | NO   |     | NULL    |                |
+| ID_CLIENTE | int(11)                 | YES  | MUL | NULL    |                |
++------------+-------------------------+------+-----+---------+----------------+
+
+INSERT INTO TELEFONE VALUES (NULL, 'CEL', '5214762610', 5);
+INSERT INTO TELEFONE VALUES (NULL, 'RES', '4658658446', 1);
+INSERT INTO TELEFONE VALUES (NULL, 'COM', '1654658466', 2);
+INSERT INTO TELEFONE VALUES (NULL, 'CEL', '5168496844', 3);
+INSERT INTO TELEFONE VALUES (NULL, 'RES', '4586964564', 4);
+INSERT INTO TELEFONE VALUES (NULL, 'COM', '1569865456', 6);
+INSERT INTO TELEFONE VALUES (NULL, 'CEL', '4465312894', 7);
+INSERT INTO TELEFONE VALUES (NULL, 'RES', '6517989745', 8);
+INSERT INTO TELEFONE VALUES (NULL, 'COM', '7985461239', 5);
+
+SELECT * FROM TELEFONE;
+
++------------+------+------------+------------+
+| IDTELEFONE | TIPO | NUMERO     | ID_CLIENTE |
++------------+------+------------+------------+
+|          1 | CEL  | 5214762610 |          5 |
+|          2 | CEL  | 5214762610 |          5 |
+|          3 | RES  | 4658658446 |          1 |
+|          4 | COM  | 1654658466 |          2 |
+|          5 | CEL  | 5168496844 |          3 |
+|          6 | RES  | 4586964564 |          4 |
+|          7 | COM  | 1569865456 |          6 |
+|          9 | RES  | 6517989745 |          8 |
+|         10 | COM  | 7985461239 |          5 |
++------------+------+------------+------------+
