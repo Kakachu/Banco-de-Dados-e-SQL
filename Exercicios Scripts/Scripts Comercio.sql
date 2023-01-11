@@ -120,3 +120,103 @@ SELECT * FROM TELEFONE;
 |          9 | RES  | 6517989745 |          8 |
 |         10 | COM  | 7985461239 |          5 |
 +------------+------+------------+------------+
+
+/*
+DML - DATA MANIPULATION LANGUAGE
+DDL - DATA DEFINITION LANGUAGE
+DCL - DATA CONTROL LANGUAGE
+TCL - TRANSACTION CONTROL LANGUAGE
+*/
+
+/* DML - DATA MANIPULATION LANGUAGE*/
+/* INSERT */
+
+INSERT INTO CLIENTE VALUES(NULL, 'PAULATEJANDO', 'M', NULL, '8749867654');
+INSERT INTO ENDERECO VALUES(NULL, 'R JOAQUIM SILVA', 'ALVORADA','NITEROI', 'RJ', 9);
+
+
+/* UPDATE */
+
+SELECT * FROM CLIENTE
+WHERE IDCLIENTE = 7;
+
+UPDATE CLIENTE
+SET SEXO = 'F'
+WHERE IDCLIENTE = 9;
+
+/* DELETE */
+
+INSERT INTO CLIENTE VALUES(NULL, 'TOMASTURBO', 'M', 'XXXXX', '4864653');
+
+SELECT * FROM CLIENTE
+WHERE IDCLIENTE = 10;
+
+DELETE FROM CLIENTE 
+WHERE IDCLIENTE = 10;
+
+
+/* DDL - DATA DEFINITION LANGUAGE*/
+CREATE TABLE PRODUTO(
+	IDPRODUTO INT PRIMARY KEY AUTO_INCREMENT,
+	NOME_PRODUTO VARCHAR(30) NOT NULL,
+	PRECO INT,
+	FRETE FLOAT(10,2) NOT NULL 
+);
+
+ALTER TABLE PRODUTO
+CHANGE PRECO VALOR_UNITARIO INT NOT NULL;
+
+DESC PRODUTO;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| IDPRODUTO      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NOME_PRODUTO   | varchar(30) | NO   |     | NULL    |                |
+| VALOR_UNITARIO | int(11)     | NO   |     | NULL    |                |
+| FRETE          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+ALTER TABLE PRODUTO
+CHANGE VALOR_UNITARIO VALOR_UNITARIO INT;
+
+DESC PRODUTO;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| IDPRODUTO      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NOME_PRODUTO   | varchar(30) | NO   |     | NULL    |                |
+| VALOR_UNITARIO | int(11)     | YES  |     | NULL    |                |
+| FRETE          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+ALTER TABLE PRODUTO
+MODIFY VALOR_UNITARIO VARCHAR(50) NOT NULL;
+
+ALTER TABLE PRODUTO
+DROP COLUMN FRETE;
+
+ALTER TABLE PRODUTO
+ADD COLUMN PESO FLOAT(10,2) NOT NULL
+AFTER NOME_PRODUTO;
+
+ALTER TABLE PRODUTO
+DROP COLUMN PESO;
+
+ALTER TABLE PRODUTO
+ADD COLUMN PESO FLOAT(10,2) NOT NULL
+FIRST;
+
+DESC PRODUTO;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| PESO           | float(10,2) | NO   |     | NULL    |                |
+| IDPRODUTO      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NOME_PRODUTO   | varchar(30) | NO   |     | NULL    |                |
+| VALOR_UNITARIO | varchar(50) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+
