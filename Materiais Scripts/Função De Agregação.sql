@@ -75,3 +75,99 @@ FROM VENDEDORES;
 SELECT SEXO, SUM(MARCO) AS MARCO
 FROM VENDEDORES
 GROUP BY SEXO;
+
+/* SUBQUERIES */
+
+SHOW TABLES;
+
+DESC VENDEDORES;
+DESC CLIENTE;
+
+SELECT * FROM VENDEDORES;
++------------+---------+------+------------+-----------+-------------+
+| IDVENDEDOR | NOME    | SEXO | JANEIRO    | FEVEREIRO | MARCO       |
++------------+---------+------+------------+-----------+-------------+
+|          1 | CARLOS  | M    |  946565.44 | 657865.50 |   753487.88 |
+|          2 | PAULA   | F    | 8465765.00 | 758770.00 | 64499784.00 |
+|          3 | GARDEN  | M    |   18679.68 |  87941.89 |   865728.69 |
+|          4 | CICILIA | F    |  847647.50 | 688989.50 |    35254.35 |
+|          5 | TOMAS   | M    |  453671.44 | 569657.94 |   987984.12 |
++------------+---------+------+------------+-----------+-------------+
+
+/* VENDEDOR QUE VENDEU MENOS EM MARCO E O SEU NOME */
+SELECT MARCO, NOME
+FROM VENDEDORES
+WHERE MARCO = (SELECT MIN(MARCO)
+               FROM VENDEDORES);
+               
++----------+---------+
+| MARCO    | NOME    |
++----------+---------+
+| 35254.35 | CICILIA |
++----------+---------+
+/* VENDEDOR QUE VENDEU MAIS EM MARCO E O SEU NOME */
+
+SELECT MARCO, NOME
+FROM VENDEDORES
+WHERE MARCO = (SELECT MAX(MARCO)
+               FROM VENDEDORES);
+
++-------------+-------+
+| MARCO       | NOME  |
++-------------+-------+
+| 64499784.00 | PAULA |
++-------------+-------+
+
+/* VENDEDORES QUE VENDERAM MAIS QUE O VALOR MEDIO DE FEVEREIRO */
+
+SELECT TRUNCATE(AVG(FEVEREIRO), 2) AS "MEDIA DE FEVEREIRO"
+FROM VENDEDORES;
+
++--------------------+
+| MEDIA DE FEVEREIRO |
++--------------------+
+|          552644.96 |
++--------------------+
+
+SELECT FEVEREIRO, NOME
+FROM VENDEDORES
+WHERE FEVEREIRO > (SELECT AVG(FEVEREIRO) 
+                   FROM VENDEDORES);
+            
++-----------+---------+
+| FEVEREIRO | NOME    |
++-----------+---------+
+| 657865.50 | CARLOS  |
+| 758770.00 | PAULA   |
+| 688989.50 | CICILIA |
+| 569657.94 | TOMAS   |
++-----------+---------+
+
+/* OPERACOES ARITMETICAS */
+
+SELECT NOME,
+       JANEIRO,
+       FEVEREIRO,
+       MARCO,
+       (JANEIRO + FEVEREIRO + MARCO) AS "TOTAL",
+       TRUNCATE((JANEIRO + FEVEREIRO + MARCO) / 3, 2 ) AS "MEDIA"
+       FROM VENDEDORES;
+       
++---------+------------+-----------+-------------+-------------+-------------+
+| NOME    | JANEIRO    | FEVEREIRO | MARCO       | TOTAL       | MEDIA       |
++---------+------------+-----------+-------------+-------------+-------------+
+| CARLOS  |  946565.44 | 657865.50 |   753487.88 |  2357918.81 |   785972.93 |
+| PAULA   | 8465765.00 | 758770.00 | 64499784.00 | 73724319.00 | 24574773.00 |
+| GARDEN  |   18679.68 |  87941.89 |   865728.69 |   972350.26 |   324116.75 |
+| CICILIA |  847647.50 | 688989.50 |    35254.35 |  1571891.35 |   523963.78 |
+| TOMAS   |  453671.44 | 569657.94 |   987984.12 |  2011313.50 |   670437.83 |
++---------+------------+-----------+-------------+-------------+-------------+
+
+SELECT NOME,
+       JANEIRO,
+       FEVEREIRO,
+       MARCO,
+       (JANEIRO + FEVEREIRO + MARCO) AS "TOTAL",
+       TRUNCATE((JANEIRO + FEVEREIRO + MARCO) / 3, 2 ) AS "MEDIA",
+       TRUNCATE((JANEIRO + FEVEREIRO + MARCO), 2 ) * 0.25 AS "DESCONTO"
+       FROM VENDEDORES;
